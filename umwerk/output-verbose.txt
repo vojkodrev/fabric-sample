@@ -1,0 +1,745 @@
+Vojkos-Umwerk-MacBook-Pro:first-network vojkodrev$ ./byfn.sh up
+++ basename ./byfn.sh
++ echo 'running script byfn.sh'
+running script byfn.sh
++ export PATH=/Users/vojkodrev/Documents/Code/hyperledger/fabric-samples/first-network/../bin:/Users/vojkodrev/Documents/Code/hyperledger/fabric-samples/first-network:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/go/bin
++ PATH=/Users/vojkodrev/Documents/Code/hyperledger/fabric-samples/first-network/../bin:/Users/vojkodrev/Documents/Code/hyperledger/fabric-samples/first-network:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/go/bin
++ export FABRIC_CFG_PATH=/Users/vojkodrev/Documents/Code/hyperledger/fabric-samples/first-network
++ FABRIC_CFG_PATH=/Users/vojkodrev/Documents/Code/hyperledger/fabric-samples/first-network
++ export VERBOSE=false
++ VERBOSE=false
++ BLACKLISTED_VERSIONS='^1\.0\. ^1\.1\.0-preview ^1\.1\.0-alpha'
+++ awk '{print tolower($0)}'
++++ uname -s
++++ tr '[:upper:]' '[:lower:]'
++++ sed 's/mingw64_nt.*/windows/'
++++ uname -m
++++ sed s/x86_64/amd64/g
+++ echo darwin-amd64
++ OS_ARCH=darwin-amd64
++ CLI_TIMEOUT=10
++ CLI_DELAY=3
++ CHANNEL_NAME=mychannel
++ COMPOSE_FILE=docker-compose-cli.yaml
++ COMPOSE_FILE_COUCH=docker-compose-couch.yaml
++ COMPOSE_FILE_ORG3=docker-compose-org3.yaml
++ LANGUAGE=golang
++ IMAGETAG=latest
++ '[' up = -m ']'
++ MODE=up
++ shift
++ '[' up == up ']'
++ EXPMODE=Starting
++ getopts 'h?c:t:d:f:s:l:i:v' opt
++ '[' '' == couchdb ']'
++ echo 'Starting for channel '\''mychannel'\'' with CLI timeout of '\''10'\'' seconds and CLI delay of '\''3'\'' seconds'
+Starting for channel 'mychannel' with CLI timeout of '10' seconds and CLI delay of '3' seconds
++ askProceed
++ read -p 'Continue? [Y/n] ' ans
+Continue? [Y/n] 
++ case "$ans" in
++ echo 'proceeding ...'
+proceeding ...
++ '[' up == up ']'
++ networkUp
++ checkPrereqs
+++ configtxlator version
+++ sed -ne 's/ Version: //p'
++ LOCAL_VERSION=1.2.0
+++ docker run --rm hyperledger/fabric-tools:latest peer version
+++ sed -ne 's/ Version: //p'
+++ head -1
++ DOCKER_IMAGE_VERSION=1.2.0
++ echo LOCAL_VERSION=1.2.0
+LOCAL_VERSION=1.2.0
++ echo DOCKER_IMAGE_VERSION=1.2.0
+DOCKER_IMAGE_VERSION=1.2.0
++ '[' 1.2.0 '!=' 1.2.0 ']'
++ for UNSUPPORTED_VERSION in '$BLACKLISTED_VERSIONS'
++ echo 1.2.0
++ grep -q '^1\.0\.'
++ '[' 1 -eq 0 ']'
++ echo 1.2.0
++ grep -q '^1\.0\.'
++ '[' 1 -eq 0 ']'
++ for UNSUPPORTED_VERSION in '$BLACKLISTED_VERSIONS'
++ echo 1.2.0
++ grep -q '^1\.1\.0-preview'
++ '[' 1 -eq 0 ']'
++ echo 1.2.0
++ grep -q '^1\.1\.0-preview'
++ '[' 1 -eq 0 ']'
++ for UNSUPPORTED_VERSION in '$BLACKLISTED_VERSIONS'
++ echo 1.2.0
++ grep -q '^1\.1\.0-alpha'
++ '[' 1 -eq 0 ']'
++ echo 1.2.0
++ grep -q '^1\.1\.0-alpha'
++ '[' 1 -eq 0 ']'
++ '[' '!' -d crypto-config ']'
++ generateCerts
++ which cryptogen
+/Users/vojkodrev/Documents/Code/hyperledger/fabric-samples/first-network/../bin/cryptogen
++ '[' 0 -ne 0 ']'
++ echo
+
++ echo '##########################################################'
+##########################################################
++ echo '##### Generate certificates using cryptogen tool #########'
+##### Generate certificates using cryptogen tool #########
++ echo '##########################################################'
+##########################################################
++ '[' -d crypto-config ']'
++ cryptogen generate --config=./crypto-config.yaml
+org1.example.com
+org2.example.com
++ res=0
++ '[' 0 -ne 0 ']'
++ echo
+
++ replacePrivateKey
+++ uname -s
+++ grep Darwin
++ ARCH=Darwin
++ '[' Darwin == Darwin ']'
++ OPTS=-it
++ cp docker-compose-e2e-template.yaml docker-compose-e2e.yaml
++ CURRENT_DIR=/Users/vojkodrev/Documents/Code/hyperledger/fabric-samples/first-network
++ cd crypto-config/peerOrganizations/org1.example.com/ca/
+++ ls f620e0ee8e51f995121389a348b332a014fa1b5d8c98aec25ac8499b156a0231_sk
++ PRIV_KEY=f620e0ee8e51f995121389a348b332a014fa1b5d8c98aec25ac8499b156a0231_sk
++ cd /Users/vojkodrev/Documents/Code/hyperledger/fabric-samples/first-network
++ sed -it s/CA1_PRIVATE_KEY/f620e0ee8e51f995121389a348b332a014fa1b5d8c98aec25ac8499b156a0231_sk/g docker-compose-e2e.yaml
++ cd crypto-config/peerOrganizations/org2.example.com/ca/
+++ ls 27e7ccaec0db7b7a788b30ebbaae51dd367fe2f369ae2e4d16f77927016364cb_sk
++ PRIV_KEY=27e7ccaec0db7b7a788b30ebbaae51dd367fe2f369ae2e4d16f77927016364cb_sk
++ cd /Users/vojkodrev/Documents/Code/hyperledger/fabric-samples/first-network
++ sed -it s/CA2_PRIVATE_KEY/27e7ccaec0db7b7a788b30ebbaae51dd367fe2f369ae2e4d16f77927016364cb_sk/g docker-compose-e2e.yaml
++ '[' Darwin == Darwin ']'
++ rm docker-compose-e2e.yamlt
++ generateChannelArtifacts
++ which configtxgen
+/Users/vojkodrev/Documents/Code/hyperledger/fabric-samples/first-network/../bin/configtxgen
++ '[' 0 -ne 0 ']'
++ echo '##########################################################'
+##########################################################
++ echo '#########  Generating Orderer Genesis block ##############'
+#########  Generating Orderer Genesis block ##############
++ echo '##########################################################'
+##########################################################
++ configtxgen -profile TwoOrgsOrdererGenesis -outputBlock ./channel-artifacts/genesis.block
+2018-09-06 10:12:44.026 CEST [common/tools/configtxgen] main -> WARN 001 Omitting the channel ID for configtxgen is deprecated.  Explicitly passing the channel ID will be required in the future, defaulting to 'testchainid'.
+2018-09-06 10:12:44.026 CEST [common/tools/configtxgen] main -> INFO 002 Loading configuration
+2018-09-06 10:12:44.037 CEST [common/tools/configtxgen/encoder] NewChannelGroup -> WARN 003 Default policy emission is deprecated, please include policy specificiations for the channel group in configtx.yaml
+2018-09-06 10:12:44.037 CEST [common/tools/configtxgen/encoder] NewOrdererGroup -> WARN 004 Default policy emission is deprecated, please include policy specificiations for the orderer group in configtx.yaml
+2018-09-06 10:12:44.037 CEST [common/tools/configtxgen/encoder] NewOrdererOrgGroup -> WARN 005 Default policy emission is deprecated, please include policy specificiations for the orderer org group OrdererOrg in configtx.yaml
+2018-09-06 10:12:44.038 CEST [msp] getMspConfig -> INFO 006 Loading NodeOUs
+2018-09-06 10:12:44.038 CEST [common/tools/configtxgen/encoder] NewOrdererOrgGroup -> WARN 007 Default policy emission is deprecated, please include policy specificiations for the orderer org group Org1MSP in configtx.yaml
+2018-09-06 10:12:44.038 CEST [msp] getMspConfig -> INFO 008 Loading NodeOUs
+2018-09-06 10:12:44.038 CEST [common/tools/configtxgen/encoder] NewOrdererOrgGroup -> WARN 009 Default policy emission is deprecated, please include policy specificiations for the orderer org group Org2MSP in configtx.yaml
+2018-09-06 10:12:44.038 CEST [common/tools/configtxgen] doOutputBlock -> INFO 00a Generating genesis block
+2018-09-06 10:12:44.039 CEST [common/tools/configtxgen] doOutputBlock -> INFO 00b Writing genesis block
++ res=0
++ '[' 0 -ne 0 ']'
++ echo
+
++ echo '#################################################################'
+#################################################################
++ echo '### Generating channel configuration transaction '\''channel.tx'\'' ###'
+### Generating channel configuration transaction 'channel.tx' ###
++ echo '#################################################################'
+#################################################################
++ configtxgen -profile TwoOrgsChannel -outputCreateChannelTx ./channel-artifacts/channel.tx -channelID mychannel
+2018-09-06 10:12:44.072 CEST [common/tools/configtxgen] main -> INFO 001 Loading configuration
+2018-09-06 10:12:44.078 CEST [common/tools/configtxgen] doOutputChannelCreateTx -> INFO 002 Generating new channel configtx
+2018-09-06 10:12:44.079 CEST [common/tools/configtxgen/encoder] NewApplicationGroup -> WARN 003 Default policy emission is deprecated, please include policy specificiations for the application group in configtx.yaml
+2018-09-06 10:12:44.079 CEST [msp] getMspConfig -> INFO 004 Loading NodeOUs
+2018-09-06 10:12:44.079 CEST [common/tools/configtxgen/encoder] NewApplicationOrgGroup -> WARN 005 Default policy emission is deprecated, please include policy specificiations for the application org group Org1MSP in configtx.yaml
+2018-09-06 10:12:44.080 CEST [msp] getMspConfig -> INFO 006 Loading NodeOUs
+2018-09-06 10:12:44.080 CEST [common/tools/configtxgen/encoder] NewApplicationOrgGroup -> WARN 007 Default policy emission is deprecated, please include policy specificiations for the application org group Org2MSP in configtx.yaml
+2018-09-06 10:12:44.081 CEST [common/tools/configtxgen] doOutputChannelCreateTx -> INFO 008 Writing new channel tx
++ res=0
++ '[' 0 -ne 0 ']'
++ echo
+
++ echo '#################################################################'
+#################################################################
++ echo '#######    Generating anchor peer update for Org1MSP   ##########'
+#######    Generating anchor peer update for Org1MSP   ##########
++ echo '#################################################################'
+#################################################################
++ configtxgen -profile TwoOrgsChannel -outputAnchorPeersUpdate ./channel-artifacts/Org1MSPanchors.tx -channelID mychannel -asOrg Org1MSP
+2018-09-06 10:12:44.117 CEST [common/tools/configtxgen] main -> INFO 001 Loading configuration
+2018-09-06 10:12:44.123 CEST [common/tools/configtxgen] doOutputAnchorPeersUpdate -> INFO 002 Generating anchor peer update
+2018-09-06 10:12:44.123 CEST [common/tools/configtxgen] doOutputAnchorPeersUpdate -> INFO 003 Writing anchor peer update
++ res=0
++ '[' 0 -ne 0 ']'
++ echo
+
++ echo '#################################################################'
+#################################################################
++ echo '#######    Generating anchor peer update for Org2MSP   ##########'
+#######    Generating anchor peer update for Org2MSP   ##########
++ echo '#################################################################'
+#################################################################
++ configtxgen -profile TwoOrgsChannel -outputAnchorPeersUpdate ./channel-artifacts/Org2MSPanchors.tx -channelID mychannel -asOrg Org2MSP
+2018-09-06 10:12:44.157 CEST [common/tools/configtxgen] main -> INFO 001 Loading configuration
+2018-09-06 10:12:44.162 CEST [common/tools/configtxgen] doOutputAnchorPeersUpdate -> INFO 002 Generating anchor peer update
+2018-09-06 10:12:44.162 CEST [common/tools/configtxgen] doOutputAnchorPeersUpdate -> INFO 003 Writing anchor peer update
++ res=0
++ '[' 0 -ne 0 ']'
++ echo
+
++ '[' '' == couchdb ']'
++ IMAGE_TAG=latest
++ docker-compose -f docker-compose-cli.yaml up -d
+Creating network "net_byfn" with the default driver
+Creating volume "net_orderer.example.com" with default driver
+Creating volume "net_peer0.org1.example.com" with default driver
+Creating volume "net_peer1.org1.example.com" with default driver
+Creating volume "net_peer0.org2.example.com" with default driver
+Creating volume "net_peer1.org2.example.com" with default driver
+Creating peer1.org2.example.com ... done
+Creating peer1.org1.example.com ... done
+Creating peer0.org2.example.com ... done
+Creating peer0.org1.example.com ... done
+Creating orderer.example.com    ... done
+Creating cli                    ... done
++ '[' 0 -ne 0 ']'
++ docker exec cli scripts/script.sh mychannel 3 golang 10 false
+++ basename scripts/script.sh
+running script script.sh
++ echo 'running script script.sh'
++ echo
++ echo ' ____    _____      _      ____    _____ '
++ echo '/ ___|  |_   _|    / \    |  _ \  |_   _|'
++ echo '\___ \    | |     / _ \   | |_) |   | |  '
++ echo ' ___) |   | |    / ___ \  |  _ <    | |  '
++ echo '|____/    |_|   /_/   \_\ |_| \_\   |_|  '
++ echo
++ echo 'Build your first network (BYFN) end-to-end test'
++ echo
++ CHANNEL_NAME=mychannel
++ DELAY=3
++ LANGUAGE=golang
++ TIMEOUT=10
++ VERBOSE=false
++ : mychannel
++ : 3
++ : golang
++ : 10
++ : false
+
+ ____    _____      _      ____    _____ 
+/ ___|  |_   _|    / \    |  _ \  |_   _|
+\___ \    | |     / _ \   | |_) |   | |  
+ ___) |   | |    / ___ \  |  _ <    | |  
+|____/    |_|   /_/   \_\ |_| \_\   |_|  
+
+Build your first network (BYFN) end-to-end test
+
+++ echo golang
+++ tr '[:upper:]' '[:lower:]'
++ LANGUAGE=golang
++ COUNTER=1
++ MAX_RETRY=5
++ CC_SRC_PATH=github.com/chaincode/chaincode_example02/go/
++ '[' golang = node ']'
++ echo 'Channel name : mychannel'
++ . scripts/utils.sh
+Channel name : mychannel
+++ set -x
++++ basename scripts/script.sh
+++ echo 'running script script.sh'
+++ ORDERER_CA=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/ordererOrganizations/example.com/orderers/orderer.example.com/msp/tlscacerts/tlsca.example.com-cert.pem
+running script script.sh
+++ PEER0_ORG1_CA=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org1.example.com/peers/peer0.org1.example.com/tls/ca.crt
+++ PEER0_ORG2_CA=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org2.example.com/peers/peer0.org2.example.com/tls/ca.crt
+++ PEER0_ORG3_CA=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org3.example.com/peers/peer0.org3.example.com/tls/ca.crt
+Creating channel...
++ echo 'Creating channel...'
++ createChannel
++ setGlobals 0 1
++ PEER=0
++ ORG=1
++ '[' 1 -eq 1 ']'
++ CORE_PEER_LOCALMSPID=Org1MSP
++ CORE_PEER_TLS_ROOTCERT_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org1.example.com/peers/peer0.org1.example.com/tls/ca.crt
++ CORE_PEER_MSPCONFIGPATH=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org1.example.com/users/Admin@org1.example.com/msp
++ '[' 0 -eq 0 ']'
++ CORE_PEER_ADDRESS=peer0.org1.example.com:7051
++ '[' false == true ']'
++ '[' -z true -o true = false ']'
++ peer channel create -o orderer.example.com:7050 -c mychannel -f ./channel-artifacts/channel.tx --tls true --cafile /opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/ordererOrganizations/example.com/orderers/orderer.example.com/msp/tlscacerts/tlsca.example.com-cert.pem
++ res=0
++ cat log.txt
+2018-09-06 08:12:47.559 UTC [channelCmd] InitCmdFactory -> INFO 001 Endorser and orderer connections initialized
+2018-09-06 08:12:47.583 UTC [cli/common] readBlock -> INFO 002 Got status: &{NOT_FOUND}
+2018-09-06 08:12:47.592 UTC [channelCmd] InitCmdFactory -> INFO 003 Endorser and orderer connections initialized
+2018-09-06 08:12:47.797 UTC [cli/common] readBlock -> INFO 004 Received block: 0
++ verifyResult 0 'Channel creation failed'
++ '[' 0 -ne 0 ']'
++ echo '===================== Channel '\''mychannel'\'' created ===================== '
++ echo
+===================== Channel 'mychannel' created ===================== 
+
++ echo 'Having all peers join the channel...'
++ joinChannel
++ for org in 1 2
++ for peer in 0 1
++ joinChannelWithRetry 0 1
++ PEER=0
++ ORG=1
++ setGlobals 0 1
++ PEER=0
++ ORG=1
++ '[' 1 -eq 1 ']'
++ CORE_PEER_LOCALMSPID=Org1MSP
++ CORE_PEER_TLS_ROOTCERT_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org1.example.com/peers/peer0.org1.example.com/tls/ca.crt
+Having all peers join the channel...
++ CORE_PEER_MSPCONFIGPATH=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org1.example.com/users/Admin@org1.example.com/msp
++ '[' 0 -eq 0 ']'
++ CORE_PEER_ADDRESS=peer0.org1.example.com:7051
++ '[' false == true ']'
++ peer channel join -b mychannel.block
++ res=0
++ cat log.txt
+2018-09-06 08:12:47.889 UTC [channelCmd] InitCmdFactory -> INFO 001 Endorser and orderer connections initialized
+2018-09-06 08:12:47.919 UTC [channelCmd] executeJoin -> INFO 002 Successfully submitted proposal to join channel
++ '[' 0 -ne 0 -a 1 -lt 5 ']'
++ COUNTER=1
++ verifyResult 0 'After 5 attempts, peer0.org1 has failed to join channel '\''mychannel'\'' '
++ '[' 0 -ne 0 ']'
++ echo '===================== peer0.org1 joined channel '\''mychannel'\'' ===================== '
++ sleep 3
+===================== peer0.org1 joined channel 'mychannel' ===================== 
++ echo
++ for peer in 0 1
++ joinChannelWithRetry 1 1
++ PEER=1
++ ORG=1
++ setGlobals 1 1
++ PEER=1
++ ORG=1
++ '[' 1 -eq 1 ']'
++ CORE_PEER_LOCALMSPID=Org1MSP
++ CORE_PEER_TLS_ROOTCERT_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org1.example.com/peers/peer0.org1.example.com/tls/ca.crt
++ CORE_PEER_MSPCONFIGPATH=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org1.example.com/users/Admin@org1.example.com/msp
++ '[' 1 -eq 0 ']'
++ CORE_PEER_ADDRESS=peer1.org1.example.com:7051
++ '[' false == true ']'
++ peer channel join -b mychannel.block
+
++ res=0
++ cat log.txt
+2018-09-06 08:12:51.015 UTC [channelCmd] InitCmdFactory -> INFO 001 Endorser and orderer connections initialized
+2018-09-06 08:12:51.104 UTC [channelCmd] executeJoin -> INFO 002 Successfully submitted proposal to join channel
++ '[' 0 -ne 0 -a 1 -lt 5 ']'
++ COUNTER=1
++ verifyResult 0 'After 5 attempts, peer1.org1 has failed to join channel '\''mychannel'\'' '
++ '[' 0 -ne 0 ']'
++ echo '===================== peer1.org1 joined channel '\''mychannel'\'' ===================== '
++ sleep 3
+===================== peer1.org1 joined channel 'mychannel' ===================== 
+
++ echo
++ for org in 1 2
++ for peer in 0 1
++ joinChannelWithRetry 0 2
++ PEER=0
++ ORG=2
++ setGlobals 0 2
++ PEER=0
++ ORG=2
++ '[' 2 -eq 1 ']'
++ '[' 2 -eq 2 ']'
++ CORE_PEER_LOCALMSPID=Org2MSP
++ CORE_PEER_TLS_ROOTCERT_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org2.example.com/peers/peer0.org2.example.com/tls/ca.crt
++ CORE_PEER_MSPCONFIGPATH=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org2.example.com/users/Admin@org2.example.com/msp
++ '[' 0 -eq 0 ']'
++ CORE_PEER_ADDRESS=peer0.org2.example.com:7051
++ '[' false == true ']'
++ peer channel join -b mychannel.block
++ res=0
++ cat log.txt
+2018-09-06 08:12:54.203 UTC [channelCmd] InitCmdFactory -> INFO 001 Endorser and orderer connections initialized
+2018-09-06 08:12:54.234 UTC [channelCmd] executeJoin -> INFO 002 Successfully submitted proposal to join channel
++ '[' 0 -ne 0 -a 1 -lt 5 ']'
++ COUNTER=1
++ verifyResult 0 'After 5 attempts, peer0.org2 has failed to join channel '\''mychannel'\'' '
++ '[' 0 -ne 0 ']'
++ echo '===================== peer0.org2 joined channel '\''mychannel'\'' ===================== '
++ sleep 3
+===================== peer0.org2 joined channel 'mychannel' ===================== 
++ echo
++ for peer in 0 1
++ joinChannelWithRetry 1 2
++ PEER=1
++ ORG=2
++ setGlobals 1 2
++ PEER=1
++ ORG=2
++ '[' 2 -eq 1 ']'
++ '[' 2 -eq 2 ']'
++ CORE_PEER_LOCALMSPID=Org2MSP
++ CORE_PEER_TLS_ROOTCERT_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org2.example.com/peers/peer0.org2.example.com/tls/ca.crt
++ CORE_PEER_MSPCONFIGPATH=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org2.example.com/users/Admin@org2.example.com/msp
++ '[' 1 -eq 0 ']'
++ CORE_PEER_ADDRESS=peer1.org2.example.com:7051
++ '[' false == true ']'
+
++ peer channel join -b mychannel.block
++ res=0
++ cat log.txt
+2018-09-06 08:12:57.332 UTC [channelCmd] InitCmdFactory -> INFO 001 Endorser and orderer connections initialized
+2018-09-06 08:12:57.365 UTC [channelCmd] executeJoin -> INFO 002 Successfully submitted proposal to join channel
+===================== peer1.org2 joined channel 'mychannel' ===================== 
++ '[' 0 -ne 0 -a 1 -lt 5 ']'
++ COUNTER=1
++ verifyResult 0 'After 5 attempts, peer1.org2 has failed to join channel '\''mychannel'\'' '
++ '[' 0 -ne 0 ']'
++ echo '===================== peer1.org2 joined channel '\''mychannel'\'' ===================== '
++ sleep 3
++ echo
+
+Updating anchor peers for org1...
++ echo 'Updating anchor peers for org1...'
++ updateAnchorPeers 0 1
++ PEER=0
++ ORG=1
++ setGlobals 0 1
++ PEER=0
++ ORG=1
++ '[' 1 -eq 1 ']'
++ CORE_PEER_LOCALMSPID=Org1MSP
++ CORE_PEER_TLS_ROOTCERT_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org1.example.com/peers/peer0.org1.example.com/tls/ca.crt
++ CORE_PEER_MSPCONFIGPATH=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org1.example.com/users/Admin@org1.example.com/msp
++ '[' 0 -eq 0 ']'
++ CORE_PEER_ADDRESS=peer0.org1.example.com:7051
++ '[' false == true ']'
++ '[' -z true -o true = false ']'
++ peer channel update -o orderer.example.com:7050 -c mychannel -f ./channel-artifacts/Org1MSPanchors.tx --tls true --cafile /opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/ordererOrganizations/example.com/orderers/orderer.example.com/msp/tlscacerts/tlsca.example.com-cert.pem
++ res=0
++ cat log.txt
+2018-09-06 08:13:00.463 UTC [channelCmd] InitCmdFactory -> INFO 001 Endorser and orderer connections initialized
+2018-09-06 08:13:00.478 UTC [channelCmd] update -> INFO 002 Successfully submitted channel update
++ verifyResult 0 'Anchor peer update failed'
++ '[' 0 -ne 0 ']'
++ echo '===================== Anchor peers updated for org '\''Org1MSP'\'' on channel '\''mychannel'\'' ===================== '
+===================== Anchor peers updated for org 'Org1MSP' on channel 'mychannel' ===================== 
++ sleep 3
+
++ echo
+Updating anchor peers for org2...
++ echo 'Updating anchor peers for org2...'
++ updateAnchorPeers 0 2
++ PEER=0
++ ORG=2
++ setGlobals 0 2
++ PEER=0
++ ORG=2
++ '[' 2 -eq 1 ']'
++ '[' 2 -eq 2 ']'
++ CORE_PEER_LOCALMSPID=Org2MSP
++ CORE_PEER_TLS_ROOTCERT_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org2.example.com/peers/peer0.org2.example.com/tls/ca.crt
++ CORE_PEER_MSPCONFIGPATH=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org2.example.com/users/Admin@org2.example.com/msp
++ '[' 0 -eq 0 ']'
++ CORE_PEER_ADDRESS=peer0.org2.example.com:7051
++ '[' false == true ']'
++ '[' -z true -o true = false ']'
++ peer channel update -o orderer.example.com:7050 -c mychannel -f ./channel-artifacts/Org2MSPanchors.tx --tls true --cafile /opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/ordererOrganizations/example.com/orderers/orderer.example.com/msp/tlscacerts/tlsca.example.com-cert.pem
++ res=0
++ cat log.txt
+2018-09-06 08:13:03.600 UTC [channelCmd] InitCmdFactory -> INFO 001 Endorser and orderer connections initialized
+2018-09-06 08:13:03.623 UTC [channelCmd] update -> INFO 002 Successfully submitted channel update
+===================== Anchor peers updated for org 'Org2MSP' on channel 'mychannel' ===================== 
++ verifyResult 0 'Anchor peer update failed'
++ '[' 0 -ne 0 ']'
++ echo '===================== Anchor peers updated for org '\''Org2MSP'\'' on channel '\''mychannel'\'' ===================== '
++ sleep 3
++ echo
+
++ echo 'Installing chaincode on peer0.org1...'
+Installing chaincode on peer0.org1...
++ installChaincode 0 1
++ PEER=0
++ ORG=1
++ setGlobals 0 1
++ PEER=0
++ ORG=1
++ '[' 1 -eq 1 ']'
++ CORE_PEER_LOCALMSPID=Org1MSP
++ CORE_PEER_TLS_ROOTCERT_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org1.example.com/peers/peer0.org1.example.com/tls/ca.crt
++ CORE_PEER_MSPCONFIGPATH=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org1.example.com/users/Admin@org1.example.com/msp
++ '[' 0 -eq 0 ']'
++ CORE_PEER_ADDRESS=peer0.org1.example.com:7051
++ '[' false == true ']'
++ VERSION=1.0
++ peer chaincode install -n mycc -v 1.0 -l golang -p github.com/chaincode/chaincode_example02/go/
++ res=0
++ cat log.txt
+2018-09-06 08:13:06.742 UTC [chaincodeCmd] checkChaincodeCmdParams -> INFO 001 Using default escc
+2018-09-06 08:13:06.742 UTC [chaincodeCmd] checkChaincodeCmdParams -> INFO 002 Using default vscc
+2018-09-06 08:13:06.907 UTC [chaincodeCmd] install -> INFO 003 Installed remotely response:<status:200 payload:"OK" > 
++ verifyResult 0 'Chaincode installation on peer0.org1 has failed'
++ '[' 0 -ne 0 ']'
++ echo '===================== Chaincode is installed on peer0.org1 ===================== '
+===================== Chaincode is installed on peer0.org1 ===================== 
++ echo
+
++ echo 'Install chaincode on peer0.org2...'
+Install chaincode on peer0.org2...
++ installChaincode 0 2
++ PEER=0
++ ORG=2
++ setGlobals 0 2
++ PEER=0
++ ORG=2
++ '[' 2 -eq 1 ']'
++ '[' 2 -eq 2 ']'
++ CORE_PEER_LOCALMSPID=Org2MSP
++ CORE_PEER_TLS_ROOTCERT_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org2.example.com/peers/peer0.org2.example.com/tls/ca.crt
++ CORE_PEER_MSPCONFIGPATH=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org2.example.com/users/Admin@org2.example.com/msp
++ '[' 0 -eq 0 ']'
++ CORE_PEER_ADDRESS=peer0.org2.example.com:7051
++ '[' false == true ']'
++ VERSION=1.0
++ peer chaincode install -n mycc -v 1.0 -l golang -p github.com/chaincode/chaincode_example02/go/
++ res=0
++ cat log.txt
+2018-09-06 08:13:07.006 UTC [chaincodeCmd] checkChaincodeCmdParams -> INFO 001 Using default escc
+2018-09-06 08:13:07.006 UTC [chaincodeCmd] checkChaincodeCmdParams -> INFO 002 Using default vscc
+2018-09-06 08:13:07.184 UTC [chaincodeCmd] install -> INFO 003 Installed remotely response:<status:200 payload:"OK" > 
++ verifyResult 0 'Chaincode installation on peer0.org2 has failed'
++ '[' 0 -ne 0 ']'
++ echo '===================== Chaincode is installed on peer0.org2 ===================== '
+===================== Chaincode is installed on peer0.org2 ===================== 
++ echo
+
++ echo 'Instantiating chaincode on peer0.org2...'
+Instantiating chaincode on peer0.org2...
++ instantiateChaincode 0 2
++ PEER=0
++ ORG=2
++ setGlobals 0 2
++ PEER=0
++ ORG=2
++ '[' 2 -eq 1 ']'
++ '[' 2 -eq 2 ']'
++ CORE_PEER_LOCALMSPID=Org2MSP
++ CORE_PEER_TLS_ROOTCERT_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org2.example.com/peers/peer0.org2.example.com/tls/ca.crt
++ CORE_PEER_MSPCONFIGPATH=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org2.example.com/users/Admin@org2.example.com/msp
++ '[' 0 -eq 0 ']'
++ CORE_PEER_ADDRESS=peer0.org2.example.com:7051
++ '[' false == true ']'
++ VERSION=1.0
++ '[' -z true -o true = false ']'
++ peer chaincode instantiate -o orderer.example.com:7050 --tls true --cafile /opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/ordererOrganizations/example.com/orderers/orderer.example.com/msp/tlscacerts/tlsca.example.com-cert.pem -C mychannel -n mycc -l golang -v 1.0 -c '{"Args":["init","a","100","b","200"]}' -P 'AND ('\''Org1MSP.peer'\'','\''Org2MSP.peer'\'')'
++ res=0
++ cat log.txt
+2018-09-06 08:13:07.293 UTC [chaincodeCmd] checkChaincodeCmdParams -> INFO 001 Using default escc
+2018-09-06 08:13:07.293 UTC [chaincodeCmd] checkChaincodeCmdParams -> INFO 002 Using default vscc
++ verifyResult 0 'Chaincode instantiation on peer0.org2 on channel '\''mychannel'\'' failed'
++ '[' 0 -ne 0 ']'
++ echo '===================== Chaincode is instantiated on peer0.org2 on channel '\''mychannel'\'' ===================== '
+===================== Chaincode is instantiated on peer0.org2 on channel 'mychannel' ===================== 
++ echo
+
++ echo 'Querying chaincode on peer0.org1...'
+Querying chaincode on peer0.org1...
++ chaincodeQuery 0 1 100
++ PEER=0
++ ORG=1
++ setGlobals 0 1
++ PEER=0
++ ORG=1
++ '[' 1 -eq 1 ']'
++ CORE_PEER_LOCALMSPID=Org1MSP
++ CORE_PEER_TLS_ROOTCERT_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org1.example.com/peers/peer0.org1.example.com/tls/ca.crt
++ CORE_PEER_MSPCONFIGPATH=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org1.example.com/users/Admin@org1.example.com/msp
++ '[' 0 -eq 0 ']'
++ CORE_PEER_ADDRESS=peer0.org1.example.com:7051
++ '[' false == true ']'
++ EXPECTED_RESULT=100
++ echo '===================== Querying on peer0.org1 on channel '\''mychannel'\''... ===================== '
+===================== Querying on peer0.org1 on channel 'mychannel'... ===================== 
++ local rc=1
+++ date +%s
++ local starttime=1536221600
+++ date +%s
++ test 0 -lt 10 -a 1 -ne 0
++ sleep 3
+++ date +%s
+Attempting to Query peer0.org1 ...3 secs
++ echo 'Attempting to Query peer0.org1 ...3 secs'
++ peer chaincode query -C mychannel -n mycc -c '{"Args":["query","a"]}'
++ res=0
++ test 0 -eq 0
+++ cat log.txt
+++ awk '/Query Result/ {print $NF}'
++ VALUE=
++ test '' = 100
++ test 1 -ne 0
+++ cat log.txt
+++ egrep '^[0-9]+$'
++ VALUE=100
++ test 100 = 100
++ let rc=0
+++ date +%s
++ test 17 -lt 10 -a 0 -ne 0
++ echo
+
++ cat log.txt
+100
++ test 0 -eq 0
++ echo '===================== Query successful on peer0.org1 on channel '\''mychannel'\'' ===================== '
+===================== Query successful on peer0.org1 on channel 'mychannel' ===================== 
+Sending invoke transaction on peer0.org1 peer0.org2...
++ echo 'Sending invoke transaction on peer0.org1 peer0.org2...'
++ chaincodeInvoke 0 1 0 2
++ parsePeerConnectionParameters 0 1 0 2
++ '[' 0 -ne 0 ']'
++ PEER_CONN_PARMS=
++ PEERS=
++ '[' 4 -gt 0 ']'
++ PEER=peer0.org1
++ PEERS=' peer0.org1'
++ PEER_CONN_PARMS=' --peerAddresses peer0.org1.example.com:7051'
++ '[' -z true -o true = true ']'
+++ eval echo '--tlsRootCertFiles $PEER0_ORG1_CA'
++++ echo --tlsRootCertFiles /opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org1.example.com/peers/peer0.org1.example.com/tls/ca.crt
++ TLSINFO='--tlsRootCertFiles /opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org1.example.com/peers/peer0.org1.example.com/tls/ca.crt'
++ PEER_CONN_PARMS=' --peerAddresses peer0.org1.example.com:7051 --tlsRootCertFiles /opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org1.example.com/peers/peer0.org1.example.com/tls/ca.crt'
++ shift
++ shift
++ '[' 2 -gt 0 ']'
++ PEER=peer0.org2
++ PEERS=' peer0.org1 peer0.org2'
++ PEER_CONN_PARMS=' --peerAddresses peer0.org1.example.com:7051 --tlsRootCertFiles /opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org1.example.com/peers/peer0.org1.example.com/tls/ca.crt --peerAddresses peer0.org2.example.com:7051'
++ '[' -z true -o true = true ']'
+++ eval echo '--tlsRootCertFiles $PEER0_ORG2_CA'
++++ echo --tlsRootCertFiles /opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org2.example.com/peers/peer0.org2.example.com/tls/ca.crt
++ TLSINFO='--tlsRootCertFiles /opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org2.example.com/peers/peer0.org2.example.com/tls/ca.crt'
++ PEER_CONN_PARMS=' --peerAddresses peer0.org1.example.com:7051 --tlsRootCertFiles /opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org1.example.com/peers/peer0.org1.example.com/tls/ca.crt --peerAddresses peer0.org2.example.com:7051 --tlsRootCertFiles /opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org2.example.com/peers/peer0.org2.example.com/tls/ca.crt'
++ shift
++ shift
++ '[' 0 -gt 0 ']'
+++ echo -e ' peer0.org1 peer0.org2'
+++ sed -e 's/^[[:space:]]*//'
++ PEERS='peer0.org1 peer0.org2'
++ res=0
++ verifyResult 0 'Invoke transaction failed on channel '\''mychannel'\'' due to uneven number of peer and org parameters '
++ '[' 0 -ne 0 ']'
++ '[' -z true -o true = false ']'
++ peer chaincode invoke -o orderer.example.com:7050 --tls true --cafile /opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/ordererOrganizations/example.com/orderers/orderer.example.com/msp/tlscacerts/tlsca.example.com-cert.pem -C mychannel -n mycc --peerAddresses peer0.org1.example.com:7051 --tlsRootCertFiles /opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org1.example.com/peers/peer0.org1.example.com/tls/ca.crt --peerAddresses peer0.org2.example.com:7051 --tlsRootCertFiles /opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org2.example.com/peers/peer0.org2.example.com/tls/ca.crt -c '{"Args":["invoke","a","b","10"]}'
++ res=0
++ cat log.txt
+2018-09-06 08:13:37.820 UTC [chaincodeCmd] chaincodeInvokeOrQuery -> INFO 001 Chaincode invoke successful. result: status:200 
++ verifyResult 0 'Invoke execution on peer0.org1 peer0.org2 failed '
++ '[' 0 -ne 0 ']'
++ echo '===================== Invoke transaction successful on peer0.org1 peer0.org2 on channel '\''mychannel'\'' ===================== '
+===================== Invoke transaction successful on peer0.org1 peer0.org2 on channel 'mychannel' ===================== 
++ echo
+
++ echo 'Installing chaincode on peer1.org2...'
+Installing chaincode on peer1.org2...
++ installChaincode 1 2
++ PEER=1
++ ORG=2
++ setGlobals 1 2
++ PEER=1
++ ORG=2
++ '[' 2 -eq 1 ']'
++ '[' 2 -eq 2 ']'
++ CORE_PEER_LOCALMSPID=Org2MSP
++ CORE_PEER_TLS_ROOTCERT_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org2.example.com/peers/peer0.org2.example.com/tls/ca.crt
++ CORE_PEER_MSPCONFIGPATH=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org2.example.com/users/Admin@org2.example.com/msp
++ '[' 1 -eq 0 ']'
++ CORE_PEER_ADDRESS=peer1.org2.example.com:7051
++ '[' false == true ']'
++ VERSION=1.0
++ peer chaincode install -n mycc -v 1.0 -l golang -p github.com/chaincode/chaincode_example02/go/
++ res=0
++ cat log.txt
+2018-09-06 08:13:37.928 UTC [chaincodeCmd] checkChaincodeCmdParams -> INFO 001 Using default escc
+2018-09-06 08:13:37.928 UTC [chaincodeCmd] checkChaincodeCmdParams -> INFO 002 Using default vscc
+2018-09-06 08:13:38.098 UTC [chaincodeCmd] install -> INFO 003 Installed remotely response:<status:200 payload:"OK" > 
++ verifyResult 0 'Chaincode installation on peer1.org2 has failed'
++ '[' 0 -ne 0 ']'
++ echo '===================== Chaincode is installed on peer1.org2 ===================== '
+===================== Chaincode is installed on peer1.org2 ===================== 
++ echo
+
++ echo 'Querying chaincode on peer1.org2...'
+Querying chaincode on peer1.org2...
++ chaincodeQuery 1 2 90
++ PEER=1
++ ORG=2
++ setGlobals 1 2
++ PEER=1
++ ORG=2
++ '[' 2 -eq 1 ']'
++ '[' 2 -eq 2 ']'
++ CORE_PEER_LOCALMSPID=Org2MSP
++ CORE_PEER_TLS_ROOTCERT_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org2.example.com/peers/peer0.org2.example.com/tls/ca.crt
++ CORE_PEER_MSPCONFIGPATH=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org2.example.com/users/Admin@org2.example.com/msp
++ '[' 1 -eq 0 ']'
++ CORE_PEER_ADDRESS=peer1.org2.example.com:7051
++ '[' false == true ']'
++ EXPECTED_RESULT=90
++ echo '===================== Querying on peer1.org2 on channel '\''mychannel'\''... ===================== '
+===================== Querying on peer1.org2 on channel 'mychannel'... ===================== 
++ local rc=1
+++ date +%s
++ local starttime=1536221618
+++ date +%s
++ test 0 -lt 10 -a 1 -ne 0
++ sleep 3
+++ date +%s
+Attempting to Query peer1.org2 ...3 secs
++ echo 'Attempting to Query peer1.org2 ...3 secs'
++ peer chaincode query -C mychannel -n mycc -c '{"Args":["query","a"]}'
++ res=0
++ test 0 -eq 0
+++ cat log.txt
+++ awk '/Query Result/ {print $NF}'
++ VALUE=
++ test '' = 90
++ test 1 -ne 0
+++ cat log.txt
+++ egrep '^[0-9]+$'
++ VALUE=90
++ test 90 = 90
++ let rc=0
+++ date +%s
+
++ test 16 -lt 10 -a 0 -ne 0
++ echo
++ cat log.txt
+90
++ test 0 -eq 0
++ echo '===================== Query successful on peer1.org2 on channel '\''mychannel'\'' ===================== '
+===================== Query successful on peer1.org2 on channel 'mychannel' ===================== 
++ echo
++ echo '========= All GOOD, BYFN execution completed =========== '
++ echo
++ echo
+
+========= All GOOD, BYFN execution completed =========== 
+
++ echo ' _____   _   _   ____   '
+
+ _____   _   _   ____   
++ echo '| ____| | \ | | |  _ \  '
+| ____| | \ | | |  _ \  
++ echo '|  _|   |  \| | | | | | '
++ echo '| |___  | |\  | | |_| | '
++ echo '|_____| |_| \_| |____/  '
+|  _|   |  \| | | | | | 
+| |___  | |\  | | |_| | 
+|_____| |_| \_| |____/  
++ echo
++ exit 0
+
++ '[' 0 -ne 0 ']'
+Vojkos-Umwerk-MacBook-Pro:first-network vojkodrev$ 
