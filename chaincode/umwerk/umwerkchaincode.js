@@ -22,9 +22,9 @@ class Chaincode {
     console.info('init');
 
     await stub.putState('services', Buffer.from(JSON.stringify([
-      { name: 'Inception', type: 'video', price: 100, id: 0 },
-      { name: 'Bad Company - Bad Company - Bad Company', type: 'music', price: 10, id: 1 },
-      { name: 'VSCode', type: 'app', price: 300, id: 2 },
+      { name: 'Inception', type: 'video', price: 100000000000000000, id: 0 },
+      { name: 'Bad Company - Bad Company - Bad Company', type: 'music', price: 10000000000000000, id: 1 },
+      { name: 'VSCode', type: 'app', price: 300000000000000000, id: 2 },
     ])));
 
     return shim.success();
@@ -52,7 +52,7 @@ class Chaincode {
 
   async registerUser(stub, args) {
     await stub.putState(getCreatorId(stub), Buffer.from(JSON.stringify({
-      tokens: 1000, 
+      tokens: 1000000000000000000, 
       purchases: []
     })));
   }
