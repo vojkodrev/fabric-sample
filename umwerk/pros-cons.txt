@@ -1,0 +1,27 @@
+
+
+PROS:
+  - private data
+  - user does not need to pay for transactions
+  - better scalability since every chaincode is a separate process
+  - does not complain that a javascript class is too long
+
+CONS:
+  - same speed as Ethereum BC (slow transactions, fast reading)
+  
+  - deployment complexity
+    - a bunch of servers/docker images (orderer, peers, ca, cli)
+    - certificates must be generated (user, server, channel)
+    - before servers are started a bunch of bash variables must be set correctly
+    
+  - chaincode is basically just another nodejs process
+  - hyperledger is just a bunch of nodejs processes with a couchdb behind
+
+  - complex javascript api (compared to Ethereum BC)
+  - some libraries will probably have to be changed for them to work in browsers
+
+  - no coin
+
+  - before user can invoke transactions certificates need to be generated
+
+  - data is saved as a key-value pairs, complex data needs to be converted to a json string
