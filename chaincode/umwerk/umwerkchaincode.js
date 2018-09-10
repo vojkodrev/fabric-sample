@@ -60,6 +60,9 @@ class Chaincode {
   }
 
   async buy(stub, args) {
+    if (!args.length)
+      throw new Error("Missing service index argument!");
+
     var creatorId = getCreatorId(stub);
 
     var user = JSON.parse(await getState(creatorId, stub));
