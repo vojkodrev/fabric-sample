@@ -26,7 +26,7 @@ class Chaincode {
     await stub.putState('services', Buffer.from(JSON.stringify([
       { name: 'Inception', type: 'video', price: 100 * FINNEY, id: 0 },
       { name: 'Bad Company - Bad Company - Bad Company', type: 'music', price: 10 * FINNEY, id: 1 },
-      { name: 'VSCode', type: 'app', price: 3000 * FINNEY, id: 2 },
+      { name: 'VSCode', type: 'app', price: 300 * FINNEY, id: 2 },
     ])));
 
     return shim.success();
