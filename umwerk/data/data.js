@@ -66,6 +66,31 @@ async function invoke(fcn, args, fabric_client, channel, event_hub) {
 	});
 }
 
+async function query(fcn, args, channel) {
+	const request = {
+		chaincodeId: 'umwerkchaincode',
+		fcn: fcn,
+		args: args
+	};
+
+	var query_responses = await channel.queryByChaincode(request);
+
+	console.log("Query has completed, checking results");
+
+	if (query_responses && query_responses.length == 1) {
+		if (query_responses[0] instanceof Error) {
+			throw new Error("error from query =", query_responses[0]);
+		} else {
+			// console.log("Response is", query_responses[0].toString());
+
+			return query_responses[0].toString();
+		}
+	} else {
+		throw new Error("No payloads were returned from query");
+	}
+
+}
+
 (async () => {
 
 	var fabric_client = new Fabric_Client();
@@ -87,7 +112,7 @@ async function invoke(fcn, args, fabric_client, channel, event_hub) {
 	crypto_suite.setCryptoKeyStore(crypto_store);
 	fabric_client.setCryptoSuite(crypto_suite);
 
-	var user_from_store = await fabric_client.getUserContext('user1', true);
+	var user_from_store = await fabric_client.getUserContext('Vojko', true);
 
 	if (!user_from_store || !user_from_store.isEnrolled()) {
 		throw new Error('Failed to get user1!');
@@ -96,22 +121,18 @@ async function invoke(fcn, args, fabric_client, channel, event_hub) {
 	let event_hub = channel.newChannelEventHub(peer);
 	await event_hub.connect();
 
+	
 	try {
-		while (true) {
-			var start = new Date().getTime();
+		await invoke("registerUser", [], fabric_client, channel, event_hub);
 
-			await Promise.all([
-				invoke("setName", ["new name1"], fabric_client, channel, event_hub),
-				invoke("setName", ["new name2"], fabric_client, channel, event_hub),
-				invoke("setName", ["new name3"], fabric_client, channel, event_hub),
-				invoke("setName", ["new name4"], fabric_client, channel, event_hub)
-			]);
-			
-			// console.log("invoke finished", result);	
-			console.log("elapsed time", (new Date().getTime()) - start, "ms");
-		}
-	} catch(err) {
-		console.error("error while running invoke", err);
+		var userDetails = await query('getUserDetails', [], channel);
+		console.log("user details", userDetails);
+
+		var services = await query('getServices', [], channel);
+		console.log("services", services);
+
+	} catch (err) {
+		console.error(err);
 	}
 
 	event_hub.disconnect();

@@ -97,7 +97,10 @@ async function registerUser(username, mspid, adminUserContext, fabricClient, fab
   
   var adminUserContext = await getAdminUserContext(fabricClient, fabricCaClient);
   
-  var userContext = await registerUser("user1", "Org1MSP", adminUserContext, fabricClient, fabricCaClient);
+  await registerUser("Vojko", "Org1MSP", adminUserContext, fabricClient, fabricCaClient);
+  await registerUser("Miha", "Org1MSP", adminUserContext, fabricClient, fabricCaClient);
+  await registerUser("Grega", "Org1MSP", adminUserContext, fabricClient, fabricCaClient);
+  await registerUser("Dave", "Org1MSP", adminUserContext, fabricClient, fabricCaClient);
   
 })();
 
