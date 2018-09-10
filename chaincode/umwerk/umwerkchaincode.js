@@ -2,6 +2,8 @@ const shim = require('fabric-shim');
 const util = require('util');
 const crypto = require('crypto');
 
+const FINNEY = 10 ** 15;
+
 function getCreatorId(stub) {
   var creator = stub.getCreator().id_bytes.toString('utf8');
   return crypto.createHash('sha256').update(creator).digest('hex');
@@ -22,9 +24,9 @@ class Chaincode {
     console.info('init');
 
     await stub.putState('services', Buffer.from(JSON.stringify([
-      { name: 'Inception', type: 'video', price: 100000000000000000, id: 0 },
-      { name: 'Bad Company - Bad Company - Bad Company', type: 'music', price: 10000000000000000, id: 1 },
-      { name: 'VSCode', type: 'app', price: 300000000000000000, id: 2 },
+      { name: 'Inception', type: 'video', price: 100 * FINNEY, id: 0 },
+      { name: 'Bad Company - Bad Company - Bad Company', type: 'music', price: 10 * FINNEY, id: 1 },
+      { name: 'VSCode', type: 'app', price: 3000 * FINNEY, id: 2 },
     ])));
 
     return shim.success();
@@ -52,7 +54,7 @@ class Chaincode {
 
   async registerUser(stub, args) {
     await stub.putState(getCreatorId(stub), Buffer.from(JSON.stringify({
-      tokens: 1000000000000000000, 
+      tokens: 1000 * FINNEY, 
       purchases: []
     })));
   }
