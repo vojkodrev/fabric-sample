@@ -5,3 +5,5 @@ docker rm -f $(docker ps -aq) && docker network prune
 docker rmi <image id>
 
 docker logs -f dev-peer0.org1.example.com-umwerkchaincode-1.0
+
+docker logs peer0.org1.example.com  2>&1 | grep "CouchDB index"
