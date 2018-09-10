@@ -6,7 +6,7 @@ var os = require('os');
 
 async function invoke(fcn, args, fabric_client, channel, event_hub) {
 	var tx_id = fabric_client.newTransactionID();
-	console.log("Assigning transaction_id: ", tx_id._transaction_id);
+	// //console.log("Assigning transaction_id: ", tx_id._transaction_id);
 
 	var request = {
 		chaincodeId: 'umwerkchaincode',
@@ -22,13 +22,13 @@ async function invoke(fcn, args, fabric_client, channel, event_hub) {
 	var proposal = results[1];
 	
 	if (!proposalResponses || !proposalResponses[0].response || proposalResponses[0].response.status != 200) {
-		console.error('Transaction proposal was bad');
+		//console.error('Transaction proposal was bad');
 		throw new Error('Transaction proposal was bad')
 	}
 
-	console.log(util.format(
-		'Successfully sent Proposal and received ProposalResponse: Status - %s, message - "%s"',
-		proposalResponses[0].response.status, proposalResponses[0].response.message));
+	//console.log(util.format(
+	//	'Successfully sent Proposal and received ProposalResponse: Status - %s, message - "%s"',
+	//	proposalResponses[0].response.status, proposalResponses[0].response.message));
 
 	var request = {
 		proposalResponses: proposalResponses,
@@ -52,10 +52,10 @@ async function invoke(fcn, args, fabric_client, channel, event_hub) {
 				clearTimeout(timeoutHandle);
 
 				if (code !== 'VALID') {
-					console.error('The transaction was invalid, code = ' + code);
+					//console.error('The transaction was invalid, code = ' + code);
 					reject(new Error('Problem with the transaction, event status ::' + code));
 				} else {
-					console.log('The transaction has been committed on peer ' + event_hub.getPeerAddr());
+					//console.log('The transaction has been committed on peer ' + event_hub.getPeerAddr());
 					resolve(tx);
 				}
 			}, 
@@ -100,14 +100,15 @@ async function invoke(fcn, args, fabric_client, channel, event_hub) {
 		while (true) {
 			var start = new Date().getTime();
 
-			await Promise.all([
-				invoke("setName", ["new name1"], fabric_client, channel, event_hub),
-				invoke("setName", ["new name2"], fabric_client, channel, event_hub),
-				invoke("setName", ["new name3"], fabric_client, channel, event_hub),
-				invoke("setName", ["new name4"], fabric_client, channel, event_hub)
-			]);
+			var promises = [];
+
+			for (let i = 0; i < 1000; i++) {
+				var promise = invoke("setName", ["new name1"], fabric_client, channel, event_hub);
+				promises.push(promise);
+			}
+
+			await Promise.all(promises);
 			
-			// console.log("invoke finished", result);	
 			console.log("elapsed time", (new Date().getTime()) - start, "ms");
 		}
 	} catch(err) {
