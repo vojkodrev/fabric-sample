@@ -22,9 +22,9 @@ class Chaincode {
     console.info('init');
 
     await stub.putState('services', Buffer.from(JSON.stringify([
-      { name: 'Inception', type: 'video', price: 100, serviceId: 0 },
-      { name: 'Bad Company - Bad Company - Bad Company', type: 'music', price: 10, serviceId: 1 },
-      { name: 'VSCode', type: 'app', price: 300, serviceId: 2 },
+      { name: 'Inception', type: 'video', price: 100, id: 0 },
+      { name: 'Bad Company - Bad Company - Bad Company', type: 'music', price: 10, id: 1 },
+      { name: 'VSCode', type: 'app', price: 300, id: 2 },
     ])));
 
     return shim.success();
@@ -51,11 +51,40 @@ class Chaincode {
   }
 
   async registerUser(stub, args) {
-    await stub.putState(getCreatorId(stub), Buffer.from(JSON.stringify({tokens: 1000, purchases: []})));
+    await stub.putState(getCreatorId(stub), Buffer.from(JSON.stringify({
+      tokens: 1000, 
+      purchases: []
+    })));
   }
 
   async buy(stub, args) {
-    
+    var creatorId = getCreatorId(stub);
+
+    var user = JSON.parse(await getState(creatorId, stub));
+    console.log('parsed user', user);
+
+    var services = JSON.parse(await getState('services', stub));
+    console.log('parsed services', services);
+
+    var serviceIndex = args[0];
+
+    var service = services.filter(i => i.id == serviceIndex)[0];
+    if (service == undefined) {
+      throw new Error("Service is not available!");
+    }
+
+    console.log('service', service);
+
+    if (user.tokens < service.price) {
+      throw new Error("Insufficient funds!");
+    }
+
+    user.tokens -= service.price;
+    user.purchases.push({ name: service.name, type: service.type, price: service.price, id: service.id });
+
+    console.log("user end state", user);
+
+    await stub.putState(creatorId, Buffer.from(JSON.stringify(user)));
   }
 
   async getUserDetails(stub, args) {

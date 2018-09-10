@@ -131,6 +131,13 @@ async function query(fcn, args, channel) {
 		var services = await query('getServices', [], channel);
 		console.log("services", services);
 
+		await invoke("buy", ['1'], fabric_client, channel, event_hub);
+		await invoke("buy", ['0'], fabric_client, channel, event_hub);
+		await invoke("buy", ['1'], fabric_client, channel, event_hub);
+
+		var userDetails = await query('getUserDetails', [], channel);
+		console.log("user details", userDetails);
+
 	} catch (err) {
 		console.error(err);
 	}
