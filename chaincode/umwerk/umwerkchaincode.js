@@ -89,7 +89,7 @@ class Chaincode {
     await stub.putState(creatorId, Buffer.from(JSON.stringify(user)));
   }
 
-  async getUserDetails(stub, args) {
+  async getUserProfile(stub, args) {
     return getState(getCreatorId(stub), stub);
   }
 
